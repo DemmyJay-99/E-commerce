@@ -1,0 +1,61 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: darkmagenta;
+}
+form {
+    width: 300px;
+    margin: 100px auto;
+    padding: 20px;
+    background-color: transparent;
+    border: 2px solid blue;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+input {
+    all: unset;
+    color: #fff;
+    border: 1px solid #999797;
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+input:is(:focus){
+    border: 2px solid transparent;
+    transition: all 0.1s ease;
+    background: linear-gradient(#121125,#121125)
+    padding-box,
+                linear-gradient(45deg,blue,red) border-box;
+}
+.registerBtn{
+        width: 100%;
+        padding: 10px;
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+}
+.registerBtn:hover {
+    background-color: #218838;
+}
+ul{ 
+    list-style: none;
+  
+}
+li{
+    display: inline-block;
+    font-size: 8px;
+    border: solid 1px transparent;
+    border-radius: 4px;
+    padding: 3px;
+    margin: 4px;
+    color: #fff;
+    background-color: red;
+}
