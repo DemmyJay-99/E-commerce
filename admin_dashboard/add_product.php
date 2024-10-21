@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (move_uploaded_file($_FILES['image']['tmp_name'], $image_path)) {
                 // Insert into database
                 $stmt = $conn->prepare("INSERT INTO products (product_name, price, description, image) VALUES (?, ?, ?, ?)");
-                $stmt->bind_param("sdsb", $product_name, $price, $description, $image_path);
+                $stmt->bind_param("sdss", $product_name, $price, $description, $image_path);
 
                 if ($stmt->execute()) {
                     echo "Product added successfully!";

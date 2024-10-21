@@ -35,7 +35,7 @@ $result = $conn->query($sql);
                 <td><?= $row['description'] ?></td>
                 <td><img src="<?= $row['image'] ?>" width="100" alt="Product Image"></td>
                 <td>
-                    <form action="delete_product.php" method="POST">
+                    <form action="delete_products.php" method="POST">
                         <input type="hidden" name="id" value="<?= $row['id'] ?>">
                         <button type="submit">Delete</button>
                     </form>
