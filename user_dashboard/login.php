@@ -1,33 +1,25 @@
 <?php
+session_start();
+include_once 'config.php'; // Connect to the database
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Database connection
-   include_once 'config.php';
-    
-    // Get form data
-    $username = $conn->real_escape_string($_POST['username']);
+    $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // Fetch user from database
-    $sql = "SELECT * FROM user WHERE username = '$username'";
-    $result = $conn->query($sql);
+    // Prepare and execute query to fetch user data
+    $stmt = $conn->prepare('SELECT * FROM user WHERE username = ? LIMIT 1');
+    $stmt->bind_param('s', $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $user = $result->fetch_assoc();
 
-    if ($result->num_rows > 0) {
-        $user = $result->fetch_assoc();
-
-        // Verify password
-        if (password_verify($password, $user['password'])) {
-            echo "Login successful!";
-            // Start session and redirect or set login state
-            session_start();
-            $_SESSION['username'] = $username;
-            header("Location: about_page.php"); // Redirect to a logged-in page
-        } else {
-            echo "Invalid password.";
-        }
+    // Verify password and start session
+    if ($user && password_verify($password, $user['password'])) {
+        $_SESSION['user_logged_in'] = true;
+        $_SESSION['user_username'] = $user['username'];
+        header('Location: about_page.php');
     } else {
-        echo "No user found with that username.";
+        echo "Invalid username or password!";
     }
-
-    $conn->close();
 }
 ?>

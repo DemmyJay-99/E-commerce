@@ -2,10 +2,7 @@
 session_start();
 include 'config.php';
 
-if (!isset($_SESSION['username'])) {
-    header("Location: login.php");
-    exit();
-}
+include 'session.php';
 
 // Query to get all logged-in users
 $sql = "SELECT username, login_time FROM sessions";

@@ -15,18 +15,19 @@
 </head>
 
 <body>
+    <centre>
     <header>
         <img src="images/logor.png" alt="simple e-commerce platform" class="logo">
         <nav>
             <ul>
-                <li><a href="index.php">Home</a></li>
+                <li><a href="dashboard.php">Home</a></li>
                 <li><a href="about_page.php">About</a></li>
                 <li><a href="products.php">Products</a></li>
                 <li><a href="#">Contact</a></li>
             </ul>
         </nav>
              
-            <li><a href="#"  class="search_icon"><img src="images/search.png" alt="Search Product"></a></li>
+            <!-- <li><a href="#"  class="search_icon"><img src="images/search.png" alt="Search Product"></a></li> -->
         </div>
        
         <div class="mobile_menu_icon">
@@ -36,14 +37,15 @@
         </div>
 
     </header>
+    </centre>
 
-<section class="search_bar">
+<!-- <section class="search_bar">
     <form method="GET">
         <input type="text" id="searchInput" name="searchInput" placeholder="Type to search items" onkeyup="return queryData(this.value)">
     </form>
     <div id="searchResult"></div>
     <button class="btnCloseSearch">&times;</button> 
-</section>
+</section> -->
 
     <section class="dim_page"></section>
  

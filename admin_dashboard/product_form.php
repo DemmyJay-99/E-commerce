@@ -1,3 +1,12 @@
+<?php
+// Database connection
+include_once 'config.php';
+
+// Fetch Categories
+$category_query = "SELECT * FROM categories";
+$categories = $conn->query($category_query);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,6 +26,15 @@
 
         <label for="description">Description:</label>
         <textarea id="description" name="description" required></textarea>
+
+        <label for="category">Category</label>
+        <select id="category" name="category_id" required>
+            <option value="">Select a Category</option>
+                <?php while ($row = $categories->fetch_assoc()): ?>
+                    <option value="<? = $row['id'] ?>"><?=htmlspecialchars($row['category_name'])?>
+                    </option>
+                    <?php endwhile; ?>
+        </select>
 
         <label for="image">Product Image:</label>
         <input type="file" id="image" name="image" accept="image/*" required>

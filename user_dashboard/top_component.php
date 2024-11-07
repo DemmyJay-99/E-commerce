@@ -51,8 +51,8 @@ error_reporting(0);
                     </div>
                 </li>
             <?php }else{ ?>
-            <li><a href="login.php">Login</a></li>
-            <li><a href="register.php">Register</a></li>
+            <!-- <li><a href="login.php">Login</a></li>
+            <li><a href="register.php">Register</a></li> -->
             <?php } ?>
              
             <li><a href="#"  class="search_icon"><img src="images/search.png" alt="Search Product"></a></li>

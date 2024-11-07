@@ -12,8 +12,8 @@ else{
     // echo "Access Granted";
 }
 ?>
-<h1>My Profile
-    <?php echo $_SESSION["full_name"]; ?>
+<h1>Welcome,
+    <?php echo $_SESSION["first_name"] ." " . $_SESSION['last_name']; ?>
 </h1>
 <section class= "my_profile_section">
     <a href="add_product.php">

@@ -5,7 +5,7 @@
 
     // Check if username length is less than 3 characters
     if (username.length < 3) {
-        usernameStatus.innerHTML = "<span style='color: red;'>Please input a username of over 3 characters</span>";
+        // usernameStatus.innerHTML = "<span style='color: red;'>Please input a username of over 3 characters</span>";
         return;  // Exit if the username is too short
     }
 
@@ -39,11 +39,12 @@ function checkPasswordStrength() {
     if (uppercasePattern.test(password)) {
         uppercaseItem.style.border = "2px solid green";
         uppercaseItem.style.backgroundColor = "lightgreen";
+        uppercaseItem.style.transition = ".4s";
         uppercaseItem.innerHTML="&check;";
         // uppercaseItem.style.width = "10px";
     } else {
         uppercaseItem.style.border = "2px solid red";
-        uppercaseItem.innerHTML="&times;At least one uppercase letter (A-Z)";
+        uppercaseItem.innerHTML="&times;";
         uppercaseItem.style.backgroundColor = "red";
     }
 
@@ -53,7 +54,7 @@ function checkPasswordStrength() {
         lowercaseItem.style.backgroundColor = "lightgreen";
     } else {
         lowercaseItem.style.border = "2px solid red";
-        lowercaseItem.innerHTML="&times;At least one lowercase letter (A-Z)";
+        lowercaseItem.innerHTML="&times;";
         lowercaseItem.style.backgroundColor = "red";
     }
 
@@ -63,7 +64,7 @@ function checkPasswordStrength() {
         numberItem.style.backgroundColor = "lightgreen";
     } else {
         numberItem.style.border = "2px solid red";
-        numberItem.innerHTML="&times;At least one number (0-9)";
+        numberItem.innerHTML="&times;";
         numberItem.style.backgroundColor = "red";
     }
 
@@ -73,7 +74,7 @@ function checkPasswordStrength() {
         specialItem.style.backgroundColor = "lightgreen";
     } else {
         specialItem.style.border = "2px solid red";
-        specialItem.innerHTML = "&times; At least one special character (!@#$%^&*)"
+        specialItem.innerHTML = "&times;"
         specialItem.style.backgroundColor = "red";
     }
 
@@ -83,7 +84,7 @@ function checkPasswordStrength() {
         lengthItem.style.backgroundColor = "lightgreen"
     } else {
         lengthItem.style.border = "2px solid red";
-        lengthItem.innerHTML = "&times; At least 12 characters long";
+        lengthItem.innerHTML = "&times;";
           lengthItem.style.backgroundColor = "red";
     }
 }
@@ -99,6 +100,18 @@ function checkEmailAvailability() {
         //Clear any previous '.com' error message when valid
         emailStatus.innerHTML ="" ;
     }
+    const emailInput = document.getElementById('email');
+const emailStatus = document.getElementById('email_status');
+emailInput.addEventListener('input', () => {
+  const email = document.getElementById('email').value.trim();
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  if (emailRegex.test(emailValue)) {
+    emailStatus.textContent = '';
+  } else {
+    emailStatus.textContent = 'Invalid email address';
+  }
+});
 
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "check_email.php", true);
@@ -137,6 +150,7 @@ function validateForm() {
 
     return true; // Allow form submission
 }
+
 
 // function changeTheme() {
 //     var body = document.getElementById("body");

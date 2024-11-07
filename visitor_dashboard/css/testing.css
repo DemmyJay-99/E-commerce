@@ -1,0 +1,7 @@
+h1{
+    filter:  blur(2px);
+}
+
+body{
+background: linear-gradient(90deg,blue,red);
+}
