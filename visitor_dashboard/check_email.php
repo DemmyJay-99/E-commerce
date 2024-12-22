@@ -1,5 +1,4 @@
 <?php
-// Database connection
 include_once 'config.php';
 
 if (isset($_POST['email'])) {
@@ -8,9 +7,9 @@ if (isset($_POST['email'])) {
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
-        echo "<span style='color: red;'>Email already registered</span>";
+        echo "<span>Email already registered</span>";
     } else {
-        echo "<span style='color: green;'>Email available</span>";
+        echo "<span >Email available</span>";
     }
 }
 $conn->close();

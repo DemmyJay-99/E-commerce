@@ -1,46 +1,43 @@
 <?php
-error_reporting();
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Database connection
-    include 'config.php';
-    $admin_email = "demmyjyd@gmail.com";
-    // Get form data
-    $first_name = $conn->real_escape_string($_POST['first_name']);
-    $last_name = $conn->real_escape_string($_POST['last_name']);
-    $email = $conn->real_escape_string($_POST['email']);
-    $password = $_POST['password'];
-// Check if the password meets the strength requirements
-$uppercase = preg_match('@[A-Z]@', $password);
-$lowercase = preg_match('@[a-z]@', $password);
-$number    = preg_match('@[0-9]@', $password);
-$specialChars = preg_match('@[^\w]@', $password);
+include 'config.php';
 
-if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 12) {
-    echo "Password should be at least 12 characters in length, include at least one uppercase letter, one lowercase letter, one number, and one special character.";
-} else {
-    // Password is strong, now hash and store it
-    $password_hashed = password_hash($password, PASSWORD_BCRYPT);
-
-    // Insert user into database if username is unique
-   
-    // Prepare SQL and bind parameters
-    $stmt = $conn->prepare("INSERT INTO users (first_name, last_name, email, password) VALUES (?,?,?,?)");
-    $stmt->bind_param('ssss', $first_name, $last_name, $email, $password_hashed);
-
-    
-    if ($stmt->execute()) {
-        
-        // Send email notification to the admin
-        $subject = "New User Registration";
-        $message = "A new user has registered:\n\nUsername: $first_name\nEmail: $email";
-        $headers = "From: noreply@example.com";
-        mail($admin_email, $subject, $message, $headers);
-        echo "Registration successful!";
-    } else {
-        echo "Error: " . $stmt . "<br>" . $conn->error;
-    }
+function validatePassword($password) {
+    return preg_match('@[A-Z]@', $password) && preg_match('@[a-z]@', $password) && 
+           preg_match('@[0-9]@', $password) && preg_match('@[^\w]@', $password) && 
+           strlen($password) >= 12;
+}
+function sendEmailNotification($adminEmail, $firstName, $email) {
+    $subject = "New User Registration";
+    $message = "A new user has registered:\n\nUsername: $firstName\nEmail: $email";
+    $headers = "From: noreply@example.com";
+    mail($adminEmail, $subject, $message, $headers);
 }
 
-$conn->close();
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $firstName = filter_var($_POST['first_name'], FILTER_SANITIZE_STRING);
+    $lastName = filter_var($_POST['last_name'], FILTER_SANITIZE_STRING);
+    $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
+    $delivery_address = filter_var($_POST['address'], FILTER_SANITIZE_STRING);
+    $password = $_POST['password'];
+
+    if (!validatePassword($password)) {
+        echo "Password does not meet the required strength.";
+    } else {
+        $passwordHashed = password_hash($password, PASSWORD_BCRYPT);
+        $stmt = $conn->prepare("INSERT INTO users (first_name, last_name, email, password,delivery_address) VALUES (?, ?, ?, ?,?)");
+        $stmt->bind_param('sssss', $firstName, $lastName, $email, $passwordHashed,$delivery_address);
+
+        if ($stmt->execute()) {
+            sendEmailNotification("demmyjyd@gmail.com", $firstName, $email);
+            echo "Registration successful!";
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+        if (!stmt) {
+          die("Error preparing statement:" . $conn->error);
+        }
+        $stmt->close();
+    }
+    $conn->close();
 }
 ?>

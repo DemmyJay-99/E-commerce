@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="fontawesome-free-6.6.0-web/css/all.min.css">
+
+</head>
+<body>
+    <div class="wrapper">
+        <div class="card login-size">
+        <h2>Login</h2>
+        <form action="logins.php" method="POST" class="login-form">
+        <div class="input-group">
+            <i class="fas fa-envelope"></i>
+            <input type="text" id="username" name="email" placeholder="Email" required>
+        </div>
+        <div class="input-group">
+            <i class="fas fa-lock"></i>
+            <input type="password" class="pass" id="password" name="password" placeholder="Password" required/>
+            <i class="fas fa-eye-slash toggler"></i>
+        </div>
+            <a href="#" class="forgot-password">Forgot Password</a>
+            <button class="btn btn-login" type="submit" name="login">Login</button>
+            <p class="toggle-text">Don't have an account?<a href="#" class="toggle">Register Now</a></p>
+        </form>
+    </div>
+
+    <div class="content">
+      <form action="register.php" method="post" onsubmit="return validateForm()">
+        <!-- Registration Form -->
+        <h2>Registration</h2>
+        <div class="input-group">
+          <i class="fas fa-user"></i>
+          <input type="text" placeholder="First Name" name="first_name" required>
+        </div>
+        
+        <div class="input-group">
+          <i class="fas fa-user"></i>
+          <input type="text" placeholder="Last Name" name="last_name" required>
+        </div>
+        <div class="input-group">
+          <i class="fas fa-envelope"></i>
+          <input type="email" placeholder="Email" id="email" name="email" onkeyup="checkEmailAvailability()" required>
+          <span id="email_status"></span>
+          <div id="email_error_popup" class="error_popup">
+            <div id="email_error_message"></div>
+          </div>
+        </div>
+        <div class="input-group">
+          <i class="fas fa-lock"></i>
+          <input type="password" placeholder="Password" name="password" class="pass2" id="password1" required>
+          <i class="fas fa-eye-slash toggler2"></i>
+          <span id="passcheck"></span>
+        </div>
+        <div class="input-group">
+          <i class="fas fa-lock"></i>
+          <input type="password" id="confirm_password" placeholder="Confirm Password" class="pass3" required>
+          <i class="fas fa-eye-slash toggler3"></i>
+         <span id="password_status"></span>
+        </div>
+        <div class="input-group">
+          <input type="text" id="address" placeholder="Input Address" name="address" required>
+          <i class="fas fa-location-pin"></i>
+         <span id="address_status"></span>
+        </div>
+        <input type="submit" value="Sign-up" class="registerBtn btn">
+        <p class="toggle-text">Already have an account? <a href="#" class="toggle">Login Now</a></p>
+      </div>
+    </form>
+    </div>
+    <script defer src="javascript/login.js"></script>
+</body>
+</html>
